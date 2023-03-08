@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>간단한 계산기</h2>
+      <input v-model.number="left" /><input v-model.number="right" /><br />
+      <button v-on:click="plus">+</button>
+      <button v-on:click="minus">-</button>
+      <button v-on:click="multiple">x</button>
+      <button v-on:click="devide">/</button>
+      <p>결과는 {{result}}입니다.</p>
+      <button v-on:click="increase(10)">10씩증가</button>
+      <button v-on:click="increase(100)">100씩증가</button>
+      <p>{{first}}</p>
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          left: 0,
+          right: 0,
+          result: 0,
+          first: 0,
+        },
+        methods: {
+          plus: function () {
+            this.result = this.left + this.right;
+          },
+          minus: function () {
+            this.result = this.left - this.right;
+          },
+          multiple: function () {
+            this.result = this.left * this.right;
+          },
+          devide: function () {
+            this.result = this.left / this.right;
+          },
+          increase: function (a) {
+            this.first += a;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

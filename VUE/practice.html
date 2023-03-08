@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+    <style>
+      .strike-through{
+      text-decoration: line-through;
+      color: blueviolet
+    }
+      .blueUnderLine{
+        text-decoration: underline;
+        color: blue;
+      }
+     
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <a v-bind:href="naver">네이버로 연결</a>
+      <p><img v-bind:src="img">고양이사진</img></p>
+      <p v-bind:align="left">왼쪽정렬</p>
+      <p v-bind:align="right">오른쪽정렬</p>
+      <p v-bind:align="center">가운데정렬</p>
+      <p v-bind:style="{color:red}">인라인스타일빨간색글자</p>
+      <p v-bind:style="{fontSize:size}">인라인스타일150%</p>
+      <p v-bind:style="{fontSize:size,color:red,backgroundColor:back}">인라인스타일150%빨간색 배경노랑</p>
+      <p v-bind:class="blueClass">블루언더라인 클래스로 지정</p>
+      <!-- css 선언된 순서가 늦은게 적용 됨 -->
+      <p v-bind:class="[blueClass,strikeClass]">blueUnderLine,strike-through클래스</p> 
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          naver: "https://www.naver.com",
+          img: "기타.jpg",
+          left: "left",
+          right: "right",
+          center:"center",
+          red:"red",
+          size:"150%",
+          back:"yellow",
+          blueClass:"blueUnderLine",
+          strikeClass:"stike-through"
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <label>이름: <input v-model.lazy="myName" /> </label><br />
+      <label>빨강<input type="radio" value="red" v-model="color" /></label>
+      <label>녹색<input type="radio" value="green" v-model="color" /></label>
+      <label>파랑<input type="radio" value="blue" v-model="color" /></label>
+      <label>노랑<input type="radio" value="yellow" v-model="color" /></label>
+      <label>회색<input type="radio" value="grey" v-model="color" /></label>
+
+      <p v-bind:style="{color:color}">
+        내 이름은 {{myName}}이고 좋아하는 색은 {{color}}입니다.
+      </p>
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          myName: "",
+          color: "",
+        },
+      });
+    </script>
+  </body>
+</html>
