@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="item in myArray">
+          {{item}}<button @click="changeNumber(item)">변경</button>
+          <button @click="changeNumber(0)">삭제</button>
+        </li>
+      </ul>
+      <button @click="add()">추가</button>
+      <button @click="show">보이게</button>
+
+      <p v-for="n in 9" v-if="display">{{number}}x{{n}}={{number * n}}</p>
+    </div>
+
+    <script>
+      let numbers = [2, 4, 6, 8, 10];
+
+      new Vue({
+        el: "#app",
+        data: {
+          myArray: numbers,
+          display: false,
+          number: 0,
+        },
+        methods: {
+          changeNumber: function (num) {
+            this.number = num;
+            console.log(this.number);
+          },
+          show: function () {
+            // if (this.display == false) {
+            //   this.display = true;
+            // } else if (this.display == true) {
+            //   this.display = false;
+            // }
+            //삼항 연산자 앞이 true이면 ? 얘를반환 : false이면 얘를 반환
+            return this.display
+              ? (this.display = false)
+              : (this.display = true);
+          },
+          add: function () {
+            this.number++;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

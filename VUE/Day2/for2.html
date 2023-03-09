@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h3>관심받고있는언어랭킹</h3>
+      <table>
+        <thead>
+          <th v-for="item in header">{{item}}</th>
+        </thead>
+        <tbody>
+          <tr v-for="line in ranking">
+            <td v-for="item in line">{{item}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+
+  <script>
+    let headerData = ["프로그래밍언어", 2018, 2013, 2008, 2003, 1998];
+    new Vue({
+      el: "#app",
+      data: {
+        header: headerData,
+        ranking: [
+          ["java", 1, 2, 1, 1, 16],
+          ["c", 2, 1, 2, 2, 1],
+          ["c++", 3, 4, 3, 3, 2],
+          ["Python", 4, 7, 6, 11, 13],
+          ["JavaScript", 7, 10, 8, 9, 4],
+        ],
+      },
+    });
+  </script>
+
+  <hr />
+  <div id="app2">
+    <h3>목록을 구성하는 데이터 변경 시 목록 업데이트</h3>
+    <ul>
+      <li v-for="item in myArray">
+        <!-- 배열값 -->
+        {{item}}
+      </li>
+    </ul>
+    <button @click="addList">맨 뒤에 추가</button>
+    <button @click="addObj(3)">네 번째에 추가</button>
+    <button @click="changeObj(0)">첫 번째를 변경</button>
+    <button v-on:click="deleteObj(1)">두 번째를 삭제</button>
+  </div>
+
+  <script>
+    let data = ["첫번째", "두번째", "세번째", "네번째", "다섯번째"];
+    new Vue({
+      el: "#app2",
+      data: {
+        myArray: data,
+      },
+      methods: {
+        addList: function () {
+          //myArray 맨 뒤에 데이터를 추가
+          //Vue.js javaScript내용을 가져와 사용
+          this.myArray.push("[맨 뒤에 추가]");
+        },
+        addObj: function (index) {
+          this.myArray.splice(index, 0, ["추가"]);
+        },
+        changeObj: function (index) {
+          this.myArray.splice(index, 1, ["변경"]);
+        },
+        deleteObj: function (index) {
+          this.myArray.splice(index, 1);
+        },
+      },
+    });
+  </script>
+  <hr />
+
+  <div id="app3">
+    <ul>
+      <li v-for="item in myArray">
+        <!-- 배열 데이터를 나열 -->
+        {{item}}
+      </li>
+    </ul>
+    <button @click="sortData(myArray)">정렬</button>
+  </div>
+
+  <script>
+    new Vue({
+      el: "#app3",
+      data: {
+        myArray: [1, 2, 3, 4, 5],
+      },
+      methods: {
+        sortData: function (dataList) {
+          dataList.sort(function (a, b) {
+            return a > b ? -1 : 1; //sort 함수 : true이면 -1반환 후 유지 false면 1반환 후 true가 되게 자리 바꿈 => 결국 내림차순으로 정렬 됨
+          });
+        },
+      },
+    });
+  </script>
+</html>

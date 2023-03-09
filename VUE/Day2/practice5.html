@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <label
+        >금지문자(,로나누어 복수입력가능)<input
+          type="text"
+          v-model="forbiddenText"
+          v-bind:disabled="!isWritable"
+      /></label>
+      <label
+        >제한시간<input
+          type="number"
+          v-model.number="restSec"
+          v-bind:disabled="!isWritable"
+      /></label>
+      <p>
+        남은시간:{{restSec}}<button
+          @click="startTimer"
+          v-bind:disabled="!isWritable"
+        >
+          시작
+        </button>
+      </p>
+      <textarea v-model="inputText" v-bind:disabled="isWritable"></textarea>
+      <p>별점:{{point}}</p>
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          isWritable: true,
+          forbidddenText: "",
+          restSec: 0,
+          inputText: "",
+          point: 0,
+          length: 0,
+        },
+        methods: {
+          startTimer: function () {
+            this.isWritable = false;
+            setInterval(() => {
+              this.restSec--;
+            }, 1000);
+          },
+        },
+        watch: {
+          inputText: function () {
+            let text = this.forbidddenText.split(",");
+
+            for (let i = 0; i < text.length; i++) {
+              var pos = this.inputText.indexOf(text[i]);
+              if (pos >= 0) {
+                alert("금지어를 입력하셨습니다.");
+                this.inputText = this.inputText.substr(0, pos);
+                this.restSec += 10;
+                this.point += 12;
+              }
+            }
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
