@@ -31,7 +31,7 @@
       </label>
 
       <p>남은 시간 : {{limitTime}}</p>
-      <textarea v-model="inputText" v-bind:disabled="isWritable"></textarea>
+      <textarea v-model="inputText" :disabled="isWritable"></textarea>
       <p>{{wordCnt}}개의 문자를 입력.</p>
       <p>벌점 : {{resultScore}} (금지문자 1개당 12점)</p>
     </div>
@@ -52,10 +52,12 @@
           start: function () {
             this.isWritable = false;
             this.limitTime = this.setTime;
-            //본인 자신을 가르키는 this를 vueObj에 넣어 줌.
+            //본인 자신을 가르키는 this를 vueObj에 넣어 줌. this가 객체를 가르킴 여기선 new Vue 객체
             const vueObj = this;
             this.timerObj = setInterval(function () {
-              vueObj.limitTime--;
+              //setInterval하면 고유의 id값이 생성됨
+              vueObj.limitTime--; //여기서 vueObj대신 this쓰면 setInterval이 Vue에서 만든게 아닌 함수라 여기서 this는 윈도우를 가르킴
+              //하지만 setInterval함수 안이라도 화살표 함수 쓰면 this가 바깥의 this를 가져 옴 즉 Vue가져 옴
             }, 1000);
           },
         },
@@ -73,7 +75,7 @@
 
             for (let i = 0; i < dataList.length; i++) {
               let keyword = dataList[i];
-              let pos = this.inputText.indexOf(keyword);
+              let pos = this.inputText.indexOf(keyword); //금지어가 inputText에 없으면 indexOf가 -1반환
               if (pos > -1) {
                 alert(this.forhiddenText + "는 입력할 수 없습니다.");
                 this.forhiddenCnt++;

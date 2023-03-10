@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div v-for="todo in todos">
+        <input type="checkbox" v-model="todo.done" />
+        <span :class="{done:todo.done}"
+          >{{todo.text}} (완료일 {{todo.expired}})</span
+        >
+        <button @click="extend(todo)">완료일 연장</button>
+      </div>
+      <input type="text" v-model:trim="addText" placeholder="할일 작성" />/
+      <input
+        type="text"
+        v-model:trim="addExpired"
+        v-on:keyup.enter="addToDo"
+        placeholder="완료일"
+      />
+      <p>완료:{{completed}}</p>
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          todos: [{ done: false, text: "밥먹기", expired: "20230310" }],
+          addText: "",
+          addExpired: "",
+        },
+        methods: {
+          addToDo: function () {
+            if (this.addExpired == "") {
+              this.todos.push({
+                done: false,
+                text: this.addText,
+                expired: "20230311",
+              });
+            } else {
+              this.todos.push({
+                done: false,
+                text: this.addText,
+                expired: this.addExpired,
+              });
+            }
+          },
+          extend: function (todo) {
+            let dateObj = new Date(
+              todo.expired.slice(0, 4),
+              todo.expired.slice(4, 2) - 1,
+              todo.expired.slice(6, 2)
+            );
+            dateObj.setDate(dateObj.getDate() + 1);
+            var year = dateObj.getFullYear(); // 년도 추출
+            var month = "0" + (dateObj.getMonth() + 1); // 월 추출
+            var day = "0" + dateObj.getDate(); // 일 추출
+            todo.expired = year + month + day;
+          },
+        },
+        computed: {
+          completed: function () {
+            return (
+              this.todos.length -
+              this.todos.filter(function (val) {
+                return !val.done;
+              }).length
+            );
+          },
+        },
+      });
+    </script>
+
+    <style>
+      .done {
+        text-decoration: line-through;
+        color: gray;
+      }
+    </style>
+  </body>
+</html>
