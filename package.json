@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@jridgewell/sourcemap-codec": "^1.4.14"
+  }
+}
